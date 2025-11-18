@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres-silownia
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: silowniadb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./db-data:/var/lib/postgresql/data

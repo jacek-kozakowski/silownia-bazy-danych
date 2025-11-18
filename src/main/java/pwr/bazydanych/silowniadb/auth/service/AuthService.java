@@ -65,10 +65,10 @@ public class AuthService {
         String htmlMessage = "<html>"
                 + "<body style=\"font-family: Arial, sans-serif;\">"
                 + "<div style=\"background-color: #f5f5f5; padding: 20px;\">"
-                + "<h2 style=\"color: #333;\">Welcome to NotEx!</h2>"
-                + "<p style=\"font-size: 16px;\">Please enter the verification code below to continue:</p>"
+                + "<h2 style=\"color: #333;\">Witaj na silowni!</h2>"
+                + "<p style=\"font-size: 16px;\">Wpisz ponizszy kod weryfikacyjny żeby przejsc dalej:</p>"
                 + "<div style=\"background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);\">"
-                + "<h3 style=\"color: #333;\">Verification Code:</h3>"
+                + "<h3 style=\"color: #333;\">Kod weryfikacyjny:</h3>"
                 + "<p style=\"font-size: 18px; font-weight: bold; color: #007bff;\">" + verificationCode + "</p>"
                 + "</div>"
                 + "</div>"
@@ -92,7 +92,7 @@ public class AuthService {
 
         if(user.isPresent()){
             Uzytkownik u = user.get();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(input.getEmail(), input.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(input.getEmail(), input.getHaslo()));
             return generateToken(u);
         }else{
             throw new UserNotFoundException("Uzytkownik o podanym email nie istnieje.");
