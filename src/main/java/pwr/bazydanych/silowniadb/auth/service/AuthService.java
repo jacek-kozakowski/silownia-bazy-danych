@@ -46,7 +46,7 @@ public class AuthService {
         }
         input.setHaslo(passwordEncoder.encode(input.getHaslo()));
         Uzytkownik nowyU = new Uzytkownik(input);
-        nowyU.setVerification_code(generateVerficationCode());
+        nowyU.setVerification_code(generateVerificationCode());
         nowyU.setVerification_date(LocalDateTime.now().plusMinutes(EXPIRATION_TIME_MINUTES));
         uzytkownikRepository.save(nowyU);
         sendVerificationEmail(nowyU);
@@ -81,7 +81,7 @@ public class AuthService {
         }
     }
 
-    private String generateVerficationCode() {
+    private String generateVerificationCode() {
         SecureRandom random = new SecureRandom();
         return String.valueOf(random.nextInt(CODE_MAX) + CODE_MIN);
     }
@@ -135,7 +135,7 @@ public class AuthService {
             if(user.isEnabled()){
                 throw new UserAlreadyVerifiedException("Uzytkownik jest juz zweryfikowany.");
             }
-            user.setVerification_code(generateVerficationCode());
+            user.setVerification_code(generateVerificationCode());
             user.setVerification_date(LocalDateTime.now().plusMinutes(EXPIRATION_TIME_MINUTES));
             uzytkownikRepository.save(user);
             sendVerificationEmail(user);
