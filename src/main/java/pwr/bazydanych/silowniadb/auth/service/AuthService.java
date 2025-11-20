@@ -18,6 +18,7 @@ import pwr.bazydanych.silowniadb.common.exceptions.UserAlreadyExistsException;
 import pwr.bazydanych.silowniadb.common.exceptions.UserAlreadyVerifiedException;
 import pwr.bazydanych.silowniadb.common.exceptions.UserNotFoundException;
 import pwr.bazydanych.silowniadb.mail.service.MailService;
+import pwr.bazydanych.silowniadb.uzytkownik.model.Klient;
 import pwr.bazydanych.silowniadb.uzytkownik.model.Uzytkownik;
 import pwr.bazydanych.silowniadb.uzytkownik.repository.UzytkownikRepository;
 
@@ -48,6 +49,11 @@ public class AuthService {
         Uzytkownik nowyU = new Uzytkownik(input);
         nowyU.setVerification_code(generateVerificationCode());
         nowyU.setVerification_date(LocalDateTime.now().plusMinutes(EXPIRATION_TIME_MINUTES));
+
+        Klient klient = new Klient(nowyU);
+
+        nowyU.setKlient(klient);
+
         uzytkownikRepository.save(nowyU);
         sendVerificationEmail(nowyU);
         return new UzytkownikDto(nowyU);

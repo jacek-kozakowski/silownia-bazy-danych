@@ -20,6 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "uzytkownicy")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Uzytkownik implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,6 +69,18 @@ public class Uzytkownik implements UserDetails {
     public Uzytkownik(){
         this.czy_aktywny = false;
     }
+
+    @OneToOne(mappedBy = "uzytkownik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Klient klient;
+
+    @OneToOne(mappedBy = "uzytkownik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Trener trener;
+
+    @OneToOne(mappedBy = "uzytkownik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private PracownikRecepcji pracownikRecepcji;
+
+    @OneToOne(mappedBy = "uzytkownik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Kierownik kierownik;
 
     public Uzytkownik(RegisterDto dto){
         this.email = dto.getEmail();

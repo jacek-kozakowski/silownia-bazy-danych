@@ -10,6 +10,9 @@ import pwr.bazydanych.silowniadb.uzytkownik.model.Uzytkownik;
 @Setter
 @NoArgsConstructor
 public class UzytkownikDto {
+
+    private Long id;
+
     private String email;
 
     private String imie;
@@ -21,6 +24,7 @@ public class UzytkownikDto {
     private String data_urodzenia;
 
     public UzytkownikDto(Uzytkownik u){
+        this.id = u.getId_uzytkownik();
         this.email = u.getEmail();
         this.imie = u.getImie();
         this.nazwisko = u.getNazwisko();
